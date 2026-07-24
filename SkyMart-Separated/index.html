@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SkyMart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ================= LOGIN VIEW ================= -->
+  <section id="login-view" class="view active">
+    <div class="login-left">
+      <div class="brand">
+        <span class="bolt">⚡</span><span class="sky">Sky</span><span class="mart">Mart</span>
+      </div>
+      <div class="eyebrow">WELCOME BACK</div>
+      <div class="hero-title">
+        Shop the future.<br /><span class="accent">Today.</span>
+      </div>
+      <p class="hero-sub">
+        Thousands of products, lightning-fast delivery, and prices that make
+        your wallet happy.
+      </p>
+      <div class="login-stats">
+        <div class="lstat">
+          <div class="num">20K+</div>
+          <div class="lbl">Products</div>
+        </div>
+        <div class="lstat">
+          <div class="num white">50K+</div>
+          <div class="lbl">Users</div>
+        </div>
+        <div class="lstat">
+          <div class="num">4.9★</div>
+          <div class="lbl">Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="brand login-mobile-brand">
+      <span class="bolt">⚡</span><span class="sky">Sky</span><span class="mart">Mart</span>
+    </div>
+    <div class="login-right">
+      <div class="login-card">
+        <div id="signin-form">
+          <h2>Sign in</h2>
+          <p class="sub">Enter your credentials to continue</p>
+          <div class="field">
+            <span class="icon">✉</span>
+            <input id="email" type="email" placeholder="Email address" />
+          </div>
+          <div class="field">
+            <span class="icon">🔒</span>
+            <input id="password" type="password" placeholder="Password" />
+            <span class="eye" onclick="togglePw('password')">👁</span>
+          </div>
+          <div class="error-msg" id="signin-error">
+            Please enter both email and password.
+          </div>
+          <button class="signin-btn" onclick="signIn()">Sign in →</button>
+          <div class="create-link">
+            Don't have an account?
+            <b onclick="toggleAuthForm('signup')">Create one</b>
+          </div>
+        </div>
+
+        <div id="signup-form" style="display: none">
+          <h2>Create account</h2>
+          <p class="sub">Join SkyMart in a few seconds</p>
+          <div class="field">
+            <span class="icon">👤</span>
+            <input id="signup-name" type="text" placeholder="Full name" />
+          </div>
+          <div class="field">
+            <span class="icon">✉</span>
+            <input id="signup-email" type="email" placeholder="Email address" />
+          </div>
+          <div class="field">
+            <span class="icon">🔒</span>
+            <input id="signup-password" type="password" placeholder="Password" />
+            <span class="eye" onclick="togglePw('signup-password')">👁</span>
+          </div>
+          <div class="error-msg" id="signup-error">
+            Please fill in all fields.
+          </div>
+          <button class="signin-btn" onclick="signUp()">
+            Create account →
+          </button>
+          <div class="create-link">
+            Already have an account?
+            <b onclick="toggleAuthForm('signin')">Sign in</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD VIEW ================= -->
+  <section id="dashboard-view" class="view">
+    <header class="topbar">
+      <div class="brand" onclick="goPage('home')">
+        <span class="bolt">⚡</span><span class="sky">Sky</span><span class="mart">Mart</span>
+      </div>
+      <nav class="mainnav">
+        <a id="nav-home" class="active" onclick="goPage('home')">Home</a>
+        <a id="nav-shop" onclick="goPage('shop')">Shop</a>
+        <a id="nav-about" onclick="goPage('about')">About</a>
+      </nav>
+      <div class="nav-right">
+        <div class="user-pill-wrap">
+          <div class="user-pill" onclick="toggleProfileMenu()">
+            <span class="avatar" id="nav-avatar">D</span>
+            <span id="nav-username">Dhruv Sharma</span> ⌄
+          </div>
+          <div class="profile-menu" id="profile-menu">
+            <button onclick="
+                  closeProfileMenu();
+                  showToastMsg('👤 Profile page coming soon');
+                ">
+              View Profile
+            </button>
+            <button onclick="
+                  closeProfileMenu();
+                  showToastMsg('📦 No past orders yet');
+                ">
+              My Orders
+            </button>
+            <button onclick="
+                  closeProfileMenu();
+                  goPage('shop');
+                ">
+              My Wishlist
+            </button>
+            <hr />
+            <button class="danger" onclick="
+                  closeProfileMenu();
+                  signOut();
+                ">
+              Sign out
+            </button>
+          </div>
+        </div>
+        <button class="icon-btn" onclick="openCart()">
+          🛒<span class="cart-badge" id="cart-badge" style="display: none">0</span>
+        </button>
+        <button class="icon-btn" onclick="signOut()">⇥</button>
+      </div>
+    </header>
+
+    <main class="dash">
+      <!-- ---- HOME PAGE ---- -->
+      <div class="page active" id="page-home">
+        <div class="hero-panel">
+          <div class="left">
+            <div class="greet">GOOD AFTERNOON 👋</div>
+            <div class="welcome-title">
+              Welcome back,<br /><span class="name" id="home-username">Dhruv!</span>
+            </div>
+            <p class="hero-desc">
+              Discover today's picks — hand-curated products across
+              electronics, fashion, and more.
+            </p>
+            <div class="hero-actions">
+              <button class="btn-primary" onclick="goPage('shop')">
+                Shop Now →
+              </button>
+              <button class="btn-secondary" onclick="goPage('shop')">
+                View All Products
+              </button>
+            </div>
+          </div>
+          <div class="right">
+            <button class="badge-card olive" onclick="goPage('shop')">
+              <div class="big">20+</div>
+              <div class="small">Products Available</div>
+            </button>
+            <button class="badge-card" onclick="showToastMsg('🚚 Free delivery on orders above ₹999')">
+              <div class="big">Free</div>
+              <div class="small">Delivery on ₹999+</div>
+            </button>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <button class="stat-card" onclick="openCart()">
+            <div class="stat-ico green">📦</div>
+            <div>
+              <div class="num" id="stat-cart-items">0</div>
+              <div class="lbl">Cart Items</div>
+              <div class="lbl2">In your bag</div>
+            </div>
+          </button>
+          <button class="stat-card" onclick="openCart()">
+            <div class="stat-ico blue">📈</div>
+            <div>
+              <div class="num" id="stat-cart-value">$0.00</div>
+              <div class="lbl">Cart Value</div>
+              <div class="lbl2">Ready to checkout</div>
+            </div>
+          </button>
+          <button class="stat-card" onclick="seeAll('top')">
+            <div class="stat-ico amber">⭐</div>
+            <div>
+              <div class="num">5</div>
+              <div class="lbl">Top Products</div>
+              <div class="lbl2">Highly rated</div>
+            </div>
+          </button>
+          <button class="stat-card" onclick="goPage('shop')">
+            <div class="stat-ico violet">🏷</div>
+            <div>
+              <div class="num">6</div>
+              <div class="lbl">Categories</div>
+              <div class="lbl2">To explore</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="section-head">
+          <h3>Shop by Category</h3>
+          <button class="view-all" onclick="goPage('shop')">
+            View All →
+          </button>
+        </div>
+        <div class="cat-grid" id="home-cat-grid"></div>
+
+        <div class="panels-row">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="title">⭐ Top Rated</div>
+              <button class="see" onclick="seeAll('top')">See all →</button>
+            </div>
+            <div id="home-top-rated"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="title">⚡ New Arrivals</div>
+              <button class="see" onclick="seeAll('new')">See all →</button>
+            </div>
+            <div id="home-new-arrivals"></div>
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <button class="feature-card" onclick="
+                showToastMsg(
+                  '⚡ Same-day delivery available on select pin codes',
+                )
+              ">
+            <div class="ico">⚡</div>
+            <div>
+              <div class="ftitle">Fast Delivery</div>
+              <div class="fsub">Same-day on select items</div>
+            </div>
+          </button>
+          <button class="feature-card" onclick="
+                showToastMsg(
+                  '🛡 All payments are secured with 256-bit encryption',
+                )
+              ">
+            <div class="ico">🛡</div>
+            <div>
+              <div class="ftitle">Secure Payments</div>
+              <div class="fsub">100% encrypted checkout</div>
+            </div>
+          </button>
+          <button class="feature-card" onclick="
+                showToastMsg(
+                  '🏷 Found it cheaper elsewhere? We will match the price',
+                )
+              ">
+            <div class="ico">🏷</div>
+            <div>
+              <div class="ftitle">Best Prices</div>
+              <div class="fsub">Price-match guarantee</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ---- SHOP PAGE ---- -->
+      <div class="page" id="page-shop">
+        <div class="shop-head">
+          <h2>Shop All Products</h2>
+          <p>Browse the full SkyMart catalog across every category.</p>
+        </div>
+        <div class="filter-banner" id="filter-banner">
+          <span id="filter-banner-text"></span>
+          <button onclick="clearTagFilter()">✕</button>
+        </div>
+        <div class="search-row">
+          <input type="text" id="search-input" placeholder="Search products…" oninput="onSearch()" />
+        </div>
+        <div class="chip-row" id="chip-row"></div>
+        <div class="shop-grid" id="shop-grid"></div>
+      </div>
+
+      <!-- ---- ABOUT PAGE ---- -->
+      <div class="page" id="page-about">
+        <div class="about-hero">
+          <h2>Shopping made <span class="accent">simple</span>.</h2>
+          <p>
+            SkyMart is a curated marketplace built to make everyday shopping
+            fast, honest, and a little more delightful — from electronics to
+            home essentials, all in one place.
+          </p>
+        </div>
+        <div class="about-grid">
+          <button class="about-card" onclick="
+                showToastMsg(
+                  '🚀 We started SkyMart in 2021 with one warehouse and a big idea',
+                )
+              ">
+            <div class="ico">🚀</div>
+            <h4>Our Mission</h4>
+            <p>
+              Bring quality products to every doorstep with transparent
+              pricing and zero guesswork.
+            </p>
+          </button>
+          <button class="about-card" onclick="
+                showToastMsg(
+                  '🌍 12 fulfilment hubs and counting, across the country',
+                )
+              ">
+            <div class="ico">🌍</div>
+            <h4>Where We Ship</h4>
+            <p>
+              Serving customers nationwide with regional hubs that keep
+              delivery times short.
+            </p>
+          </button>
+          <button class="about-card" onclick="
+                showToastMsg(
+                  '🤝 Every seller on SkyMart is verified before they can list',
+                )
+              ">
+            <div class="ico">🤝</div>
+            <h4>Our Promise</h4>
+            <p>
+              Every item is checked for quality, and every order is backed by
+              our price-match guarantee.
+            </p>
+          </button>
+        </div>
+
+        <div class="about-faq">
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">
+              <span>What are your delivery timelines?</span><span class="chev">⌄</span>
+            </div>
+            <div class="faq-a">
+              Most orders arrive within 2–5 business days. Select items in
+              major cities qualify for same-day delivery.
+            </div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">
+              <span>What is your return policy?</span><span class="chev">⌄</span>
+            </div>
+            <div class="faq-a">
+              You can return most items within 7 days of delivery for a full
+              refund, as long as they're unused and in original packaging.
+            </div>
+          </div>
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-q">
+              <span>Do you ship internationally?</span><span class="chev">⌄</span>
+            </div>
+            <div class="faq-a">
+              Not yet — right now SkyMart only delivers within the country,
+              but international shipping is on our roadmap.
+            </div>
+          </div>
+        </div>
+
+        <div class="about-contact">
+          <div>
+            <h4>Need help with an order?</h4>
+            <p>
+              Our support team replies within a few hours, every day of the
+              week.
+            </p>
+          </div>
+          <button class="btn-primary" onclick="
+                showToastMsg(
+                  '📩 Support request sent! We will email you shortly.',
+                )
+              ">
+            Contact Support
+          </button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ================= CART OVERLAY ================= -->
+  <div class="overlay" id="cart-overlay" onclick="closeCartOutside(event)">
+    <div class="cart-panel">
+      <div class="cart-head">
+        <h3>Your Cart</h3>
+        <button class="cart-close" onclick="closeCart()">✕</button>
+      </div>
+      <div class="cart-body" id="cart-body"></div>
+      <div class="cart-foot" id="cart-foot" style="display: none">
+        <div class="cart-total-row">
+          <span>Total</span><b id="cart-total">$0.00</b>
+        </div>
+        <button class="signin-btn" onclick="openCheckout()">
+          Checkout →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PRODUCT DETAIL MODAL ================= -->
+  <div class="overlay center" id="product-overlay" onclick="closeOverlayOutside(event, 'product-overlay')">
+    <div class="modal-card">
+      <div class="cart-head">
+        <h3>Product Details</h3>
+        <button class="cart-close" onclick="closeModal('product-overlay')">
+          ✕
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="pd-thumb" id="pd-thumb"></div>
+        <div class="pd-cat" id="pd-cat"></div>
+        <div class="pd-name" id="pd-name"></div>
+        <div class="pd-price" id="pd-price"></div>
+        <p class="pd-desc" id="pd-desc"></p>
+        <div class="pd-actions">
+          <button class="signin-btn" id="pd-add-btn" style="margin-top: 0"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CHECKOUT MODAL ================= -->
+  <div class="overlay center" id="checkout-overlay" onclick="closeOverlayOutside(event, 'checkout-overlay')">
+    <div class="modal-card">
+      <div class="cart-head">
+        <h3>Checkout</h3>
+        <button class="cart-close" onclick="closeModal('checkout-overlay')">
+          ✕
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label>Full name</label>
+          <input type="text" id="co-name" placeholder="Dhruv Sharma" />
+        </div>
+        <div class="form-row">
+          <label>Delivery address</label>
+          <input type="text" id="co-address" placeholder="House no., street, area" />
+        </div>
+        <div class="form-2col">
+          <div class="form-row">
+            <label>City</label>
+            <input type="text" id="co-city" placeholder="Noida" />
+          </div>
+          <div class="form-row">
+            <label>Pincode</label>
+            <input type="text" id="co-pincode" placeholder="201301" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Payment method</label>
+          <div class="pay-row">
+            <button class="pay-chip active" id="pay-upi" onclick="selectPayment('upi')">
+              UPI
+            </button>
+            <button class="pay-chip" id="pay-card" onclick="selectPayment('card')">
+              Card
+            </button>
+            <button class="pay-chip" id="pay-cod" onclick="selectPayment('cod')">
+              Cash on Delivery
+            </button>
+          </div>
+        </div>
+        <div class="co-summary" id="co-summary"></div>
+        <div class="error-msg" id="checkout-error">
+          Please fill in your name and address.
+        </div>
+        <button class="signin-btn" onclick="placeOrder()">
+          Place Order →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✅ Logged out. See you soon! 👋</div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
